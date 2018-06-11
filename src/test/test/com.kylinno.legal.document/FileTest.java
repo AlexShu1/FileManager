@@ -12,7 +12,7 @@ import java.util.Date;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes  = FastDFSApplication.class)
+@SpringBootTest(classes = FastDFSApplication.class)
 public class FileTest {
 
     @Autowired
@@ -39,13 +39,13 @@ public class FileTest {
         System.out.println(code);
         String[] codes = code.split(";");
         for (int i = 0; i < codes.length; i++) {
-            System.out.print((char)Integer.parseInt(codes[i]));
+            System.out.print((char) Integer.parseInt(codes[i]));
         }
     }
 
     @Test
     public void testSplitChineseFile() {
-        String path ="&#26032;&#24314;&#25991;&#26412;&#25991;&#26723;.txt";
+        String path = "&#26032;&#24314;&#25991;&#26412;&#25991;&#26723;.txt";
         System.out.println(path.contains("\\."));
         /*String[] splits = path.split("\\.");
         System.out.println(splits.length);
@@ -53,4 +53,23 @@ public class FileTest {
             System.out.println(item);
         }*/
     }
+
+    @Test
+    public void testFile2() {
+        /*String path = "test1/test2/test.txt";
+        String[] paths = path.split("/");
+        int pathLength = paths.length;
+
+        for (int i = 0; i < pathLength; i++) {
+            TestFileInfo file = new TestFileInfo();
+            file.setName(paths[i]);
+            file.setType("Directory");
+
+            TestFileInfo file2 = new TestFileInfo();
+            file2.setName(paths[i + 1]);
+            file.setFile();
+        }*/
+
+    }
+
 }

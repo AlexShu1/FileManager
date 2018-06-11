@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 @RestController
 public class UploadController {
@@ -28,7 +27,7 @@ public class UploadController {
      * @throws IOException
      */
     @PostMapping("/upload")
-    public String fileUpload(@RequestParam("file") MultipartFile[] files) throws UnsupportedEncodingException {
+    public String fileUpload(@RequestParam("file") MultipartFile[] files) throws IOException {
 
         int fileLength = files.length;
 

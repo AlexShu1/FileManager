@@ -1,6 +1,6 @@
 package com.kylinno.legal.document.domain.untils;
 
-public class DecodeStringUtil {
+public class FileUtil {
 
     /**
      * Let Hex string to chinese.

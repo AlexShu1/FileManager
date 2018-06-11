@@ -5,7 +5,7 @@ import com.kylinno.legal.document.domain.model.FastDFSFile;
 import com.kylinno.legal.document.domain.repository.FileRepository;
 import com.kylinno.legal.document.domain.service.FastDFSClient;
 import com.kylinno.legal.document.domain.service.FileService;
-import com.kylinno.legal.document.domain.untils.DecodeStringUtil;
+import com.kylinno.legal.document.domain.untils.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,11 +102,11 @@ public class FileServiceImpl implements FileService {
         for (int i = 0; i < filePathLength; i++) {
             if (filePaths[i].contains("&#") && filePaths[i].contains(".")) { // Chinese file
                 String[] chineseFilePaths = filePaths[i].split("\\.");
-                stringBuilder.append(DecodeStringUtil.hexStringToChinese(chineseFilePaths[0]));
+                stringBuilder.append(FileUtil.hexStringToChinese(chineseFilePaths[0]));
                 stringBuilder.append(".");
                 stringBuilder.append(chineseFilePaths[1]);
             } else if (filePaths[i].contains("&#")) { // Chinese directory
-                stringBuilder.append(DecodeStringUtil.hexStringToChinese(filePaths[i]));
+                stringBuilder.append(FileUtil.hexStringToChinese(filePaths[i]));
                 stringBuilder.append("/");
             } else if (filePaths[i].contains(".")) { // English file
                 stringBuilder.append(filePaths[i]);
