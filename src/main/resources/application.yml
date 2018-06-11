@@ -1,10 +1,16 @@
 server:
   port: 8888
+  tomcat:
+      uri-encoding: UTF-8
 fastdfs:
   charset: UTF-8
 spring:
   application:
     name: localhost
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
   http:
     multipart:
       max-file-size: 100MB

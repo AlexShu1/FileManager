@@ -1,6 +1,5 @@
 package com.kylinno.legal.document.resource;
 
-import com.kylinno.legal.document.domain.repository.FileRepository;
 import com.kylinno.legal.document.domain.service.FileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 @RestController
 public class UploadController {
@@ -18,12 +18,7 @@ public class UploadController {
     @Autowired
     private FileService fileService;
 
-    @Autowired
-    private FileRepository fileRepository;
-
     private static Logger logger = LoggerFactory.getLogger(UploadController.class);
-
-    private long startTime;
 
     /**
      * Upload files: single file or more files.
@@ -33,12 +28,11 @@ public class UploadController {
      * @throws IOException
      */
     @PostMapping("/upload")
-    public String fileUpload(@RequestParam("file") MultipartFile[] files) {
+    public String fileUpload(@RequestParam("file") MultipartFile[] files) throws UnsupportedEncodingException {
 
         int fileLength = files.length;
-        startTime = System.currentTimeMillis();
 
-        for(int i = 0; i < fileLength; i++) {
+        for (int i = 0; i < fileLength; i++) {
             MultipartFile file = files[i];
 
             try {
@@ -56,6 +50,6 @@ public class UploadController {
             }
         }
 
-        return "Success upload files!";
+        return "Successful upload files!";
     }
 }
