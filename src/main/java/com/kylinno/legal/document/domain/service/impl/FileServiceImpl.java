@@ -42,7 +42,7 @@ public class FileServiceImpl implements FileService {
         file.setCreatedDate(new Date());
         file.setModifyDate(new Date());
 
-        fileRepository.insert(file);
+        fileRepository.save(file);
     }
 
     @Override
