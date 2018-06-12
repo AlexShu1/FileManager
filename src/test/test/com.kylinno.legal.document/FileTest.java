@@ -1,7 +1,9 @@
 package com.kylinno.legal.document;
 
 import com.kylinno.legal.document.domain.entity.FileEntity;
+import com.kylinno.legal.document.domain.entity.TestFileInfo;
 import com.kylinno.legal.document.domain.repository.FileRepository;
+import com.kylinno.legal.document.domain.repository.TestFileRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
+import java.util.Optional;
 
 
 @RunWith(SpringRunner.class)
@@ -17,6 +20,9 @@ public class FileTest {
 
     @Autowired
     private FileRepository fileRepository;
+
+    @Autowired
+    private TestFileRepository testFileRepository;
 
     @Test
     public void testUploadFile() {
@@ -55,21 +61,87 @@ public class FileTest {
     }
 
     @Test
-    public void testFile2() {
-        /*String path = "test1/test2/test.txt";
+    public void test() {
+        String path = "test1/test2/test.txt";
+        //String path = "test1/test1.txt";
+
+        //先判断是否存在相同的目录
         String[] paths = path.split("/");
-        int pathLength = paths.length;
 
-        for (int i = 0; i < pathLength; i++) {
-            TestFileInfo file = new TestFileInfo();
-            file.setName(paths[i]);
-            file.setType("Directory");
+        TestFileInfo resultFile = null;
+        Optional<TestFileInfo> resultFileOptional = Optional.empty();
+        int index = 1;
+        StringBuilder stringBuilder = new StringBuilder(paths[0]);
 
-            TestFileInfo file2 = new TestFileInfo();
-            file2.setName(paths[i + 1]);
-            file.setFile();
+        /*for (int i = 0; true; i++) {
+            resultFileOptional = Optional.ofNullable(testFileRepository.findByName(stringBuilder.toString()));
         }*/
 
+        // 没有相同的开始目录，直接存入；
+        TestFileInfo testFileInfo = testFile2(path);
+        System.out.println(testFileInfo);
+        testFileRepository.save(testFileInfo);
     }
+
+    public TestFileInfo testFile2(String path) {
+        String[] paths = path.split("/");
+        int pathLength = paths.length;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        if (pathLength == 1) {
+            return new TestFileInfo(paths[0], "192.168.10.31:8888/Group1/M0/00/1.txt");
+        }
+
+        for (int i = 1; i < pathLength - 1; i++) {
+            stringBuilder.append(paths[i]);
+            stringBuilder.append("/");
+        }
+
+        stringBuilder.append(paths[pathLength - 1]);
+
+        TestFileInfo t = testFile2(stringBuilder.toString());
+        TestFileInfo t1 = new TestFileInfo(paths[0]);
+        t1.getFiles().add(t);
+        return t1;
+    }
+
+    public TestFileInfo testFile3(String path, TestFileInfo fileInfo) {
+        String[] paths = path.split("/");
+        int pathLength = paths.length;
+        StringBuilder stringBuilder = new StringBuilder();
+        if (fileInfo == null) {
+            fileInfo = new TestFileInfo();
+            fileInfo.setName(paths[0]);
+        }
+
+        if (pathLength == 1) {
+            return new TestFileInfo(paths[0], "192.168.10.31:8888/Group1/M0/00/1.txt");
+        }
+
+        for (int i = 1; i < pathLength - 1; i++) {
+            stringBuilder.append(paths[i]);
+            stringBuilder.append("/");
+        }
+
+        stringBuilder.append(paths[pathLength - 1]);
+
+        TestFileInfo t = testFile3(stringBuilder.toString(), fileInfo);
+        System.out.println("----------------------------------------------------");
+
+        for (TestFileInfo item : fileInfo.getFiles()) {
+            System.out.println(item.getName());
+        }
+
+        System.out.println("**************************************");
+        System.out.println(t.getName());
+
+
+        if (!(fileInfo.getFiles().contains(t.getName()))) {
+            fileInfo.getFiles().add(t);
+        }
+
+        return fileInfo;
+    }
+
 
 }

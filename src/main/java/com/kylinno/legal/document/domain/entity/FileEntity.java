@@ -2,7 +2,6 @@ package com.kylinno.legal.document.domain.entity;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -19,26 +18,10 @@ public class FileEntity implements Serializable {
     private String savePath;
     private String chinesePath;
     private Boolean isDelete;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createdDate;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date modifyDate;
-    private String fileType;
-    private String parentPth;
 
     public FileEntity() {
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getIpAddress() {
@@ -95,21 +78,5 @@ public class FileEntity implements Serializable {
 
     public void setModifyDate(Date modifyDate) {
         this.modifyDate = modifyDate;
-    }
-
-    public String getFileType() {
-        return fileType;
-    }
-
-    public void setFileType(String fileType) {
-        this.fileType = fileType;
-    }
-
-    public String getParentPth() {
-        return parentPth;
-    }
-
-    public void setParentPth(String parentPth) {
-        this.parentPth = parentPth;
     }
 }
