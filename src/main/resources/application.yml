@@ -1,16 +1,18 @@
 server:
-  port: 8888
+  port: 42100
   tomcat:
-      uri-encoding: UTF-8
+    uri-encoding: UTF-8
 fastdfs:
   charset: UTF-8
 spring:
   application:
-    name: localhost
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: update
+    name: document-service
+  profiles:
+    active: dev
+---
+#development environment
+spring:
+  profiles: dev
   http:
     multipart:
       max-file-size: 100MB
@@ -18,3 +20,12 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/fileDB
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://192.168.8.100:8761/eureka/
+
+---
+#production environment
+spring:
+  profiles: prod
